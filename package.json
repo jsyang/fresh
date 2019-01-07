@@ -1,0 +1,29 @@
+{
+  "name": "fresh",
+  "version": "1.0.0",
+  "description": "App that tracks how to and when to clean rooms",
+  "author": "jsyang.ca@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "ts-watch": "tsc --noEmit -w -p .",
+    "regen-env": "node scripts/generateDotEnv.js",
+    "seed-data": "node scripts/initializeNetworkDB.js",
+    "bake-html": "node scripts/bakeIndexHTML.js ; rm fresh.js",
+    "watch": "yarn regen-env ; parcel _dev.html --port 3000 --no-hmr --no-source-maps",
+    "build": "rm -rf .cache ; yarn regen-env ; parcel build _dev.html --no-source-maps --out-dir . ; yarn cleanup ; yarn bake-html",
+    "cleanup": "git checkout _dev.html ; mv src.*.js fresh.js"
+  },
+  "dependencies": {
+    "@types/parcel-env": "^0.0.0",
+    "express": "^4.16.4",
+    "history": "^4.7.2",
+    "mongodb": "^3.1.10",
+    "node-fetch": "^2.3.0",
+    "parcel-bundler": "^1.11.0",
+    "picostyle": "^2.0.1",
+    "preact": "^8.4.2",
+    "preact-router": "^2.6.1",
+    "typescript": "^3.2.2",
+    "unistore": "^3.1.1"
+  }
+}

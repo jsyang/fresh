@@ -1,0 +1,16 @@
+room,name,description,isDeep,weight,history,userLastCleaned,timeLastCleaned
+Kitchen,wipe down all counter surfaces,ensure entire surface is wiped: move things if you need to get under them,true,5,,,0
+Kitchen,scrub pink table,,false,3,,,0
+Kitchen,organize snack box,,false,1,,,0
+Kitchen,scrub stove top,,true,3,,,0
+Kitchen,vacuum floor,,false,6,,,0
+Kitchen,clear teabag tray,,false,1,,,0
+Kitchen,scrub oven window,,true,1,,,0
+Kitchen,bleach sink,,true,2,,,0
+Kitchen,clear sink of debris and stains,including drying area on the left hand side,false,3,,,0
+Kitchen,clear toaster crumbs,,true,3,,,0
+Kitchen,organize things near rice-cooker,,true,2,,,0
+Kitchen,organize things near window,,false,1,,,0
+Kitchen,run dishwasher self-clean,,true,1,,,0
+Kitchen,wipe down fridge door,,true,2,,,0
+Kitchen,organize fridge door attachments,,false,2,,,0
