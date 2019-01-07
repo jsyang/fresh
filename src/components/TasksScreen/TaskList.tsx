@@ -17,9 +17,10 @@ const ListTable: any = style('table')({
 
 const padding = '0.25em';
 
-const FinishButton: any = style('td')({
+const FinishButton: any = style('th')({
     background:   Color.Blue1,
-    'font-size':  '1em',
+    color:        Color.Blue0,
+    'font-size':  '1.8em',
     padding,
     'text-align': 'center'
 });
@@ -34,6 +35,7 @@ const Name: any = style('td')({
 const TimeLastCleaned: any = style('td')({
     'font-size':  '1em',
     'text-align': 'right',
+    'min-width':  '6em',
     padding
 });
 
@@ -43,6 +45,12 @@ const UserLastCleaned: any = style('td')({
     'font-style': 'italic',
     width:        '3em',
     padding
+});
+
+const TaskRow: any = style('tr')({
+    'th': {
+        'border-top': `1px solid ${Color.Blue0}`
+    }
 });
 
 class TaskList extends Component<ITaskListProps> {
@@ -57,16 +65,16 @@ class TaskList extends Component<ITaskListProps> {
     };
 
     getTaskRow = (t: ITask) => (
-        <tr style={{
+        <TaskRow style={{
             animation:  getIsOverDue(t.timeLastCleaned) ? 'blink 2s infinite steps(1)' : '',
             background: getBackgroundColorByTime(t.timeLastCleaned),
             color:      getTextColorByTime(t.timeLastCleaned)
         }}>
-            <FinishButton onClick={() => this.onClickFinish(t)}>☑️</FinishButton>
+            <FinishButton onClick={() => this.onClickFinish(t)}>✕</FinishButton>
             <Name onClick={() => this.onClickName(t)}>{t.name}</Name>
             <TimeLastCleaned>{getRelativeHumanString(t.timeLastCleaned)} ago</TimeLastCleaned>
             <UserLastCleaned>{t.userLastCleaned}</UserLastCleaned>
-        </tr>
+        </TaskRow>
     );
 
     render() {

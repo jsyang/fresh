@@ -7,13 +7,10 @@ have not been cleaned in a while.
 Hosted at [http://jsyang.ca/fresh](http://jsyang.ca/fresh)
 
 ## Todo
-- create list sorting
 - create room sorting based on task list
-
-- auth with Twitter
+- fill out seed tasks for rooms
 - send twitter DMs when stuff gets urgent
 - admin panel
-- color-code urgency
 - better mobile UI
 
 ## Tech choices

@@ -15,13 +15,14 @@ const HeaderContainer: any = style('div')({
 });
 
 const Header: any = style('div')({
-    position:   'fixed',
-    top:        0,
-    left:       0,
-    display:    'block',
-    width:      '100%',
-    background: Color.Blue1,
-    height:     HEADER_HEIGHT
+    position:        'fixed',
+    top:             0,
+    left:            0,
+    display:         'block',
+    width:           '100%',
+    background:      Color.Blue1,
+    height:          HEADER_HEIGHT,
+    'border-bottom': `1px solid ${Color.Blue2}`
 });
 
 const AuthButton: any = style('div')({
@@ -79,12 +80,12 @@ class UnconnectedHeader extends Component<IUnconnectedHeaderProps> {
 
         let backButton;
         if (/^clean/.test(route)) {
-            backButton = <BackButton onClick={this.onClickBack}>⬅️</BackButton>;
+            backButton = <BackButton onClick={this.onClickBack}>⬅</BackButton>;
         }
 
         return (
             <HeaderContainer>
-                <Header>
+                <Header style="z-index:9001">
                     {backButton}
                     <Title title={process.env.BUILD_DATE}>Fresh!</Title>
                     {username ?
