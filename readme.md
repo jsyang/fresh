@@ -4,7 +4,7 @@ Mobile-focused app to organize what to and how to clean areas of the house. With
 we can clean thoroughly and track cleaning frequency as well as surface important things 
 to be cleaned which have not been cleaned in a while.
 
-Finally, a *USEFUL* to do example app!
+Finally, a example to-do app that's actually *USEFUL*!
 
 Hosted at [http://jsyang.ca/fresh](http://jsyang.ca/fresh)
 
