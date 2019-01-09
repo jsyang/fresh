@@ -10,6 +10,9 @@ const app     = express();
 app.use((new ddos).express);
 app.use(helmet());
 
+// Redirect to project homepage if trying to access the API directly in browser
+app.get('/', (req, res) => res.redirect(require('../../package.json').homepage));
+
 // Primitive auth
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -51,7 +54,7 @@ app.get('/:collection', ({username, password, params}, res) => {
     connect(username, password)
         .then(({db, client}) => db.collection(params.collection).find({}).toArray((err, result) => {
             client.close();
-            
+
             res.json(result.map(COLLECTION_TRANSFORMS[params.collection]));
         }))
         .catch(err => res.status(400).send(err))
@@ -73,8 +76,6 @@ app.post('/tasks/:id', ({username, password, params, body}, res) => {
         .catch(err => res.status(400).send(err))
 });
 
-// Redirect to project homepage if trying to access the API directly in browser
-app.get('/', (req, res) => res.redirect(require('../../package.json').homepage));
 
 require('http').createServer(app).listen(
     process.env.PORT || 3001,
