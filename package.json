@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "App that tracks how to and when to clean rooms",
   "author": "jsyang.ca@gmail.com",
+  "homepage": "https://github.com/jsyang/fresh",
   "license": "MIT",
   "scripts": {
     "ts-watch": "tsc --noEmit -w -p .",

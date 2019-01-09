@@ -66,6 +66,9 @@ app.post('/tasks/:id', ({username, password, params, body}, res) => {
         .catch(err => res.status(400).send(err))
 });
 
+// Redirect to project homepage if trying to access the API directly in browser
+app.get('/', require('../../package.json').homepage);
+
 require('http').createServer(app).listen(
     process.env.PORT || 3001,
     err => err ? console.error(err) : console.log('Get busy!')
