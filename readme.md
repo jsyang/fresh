@@ -1,16 +1,20 @@
 # Fresh
 
 Mobile-focused app to organize what to and how to clean areas of the house. With this
-we can clean thoroughly and track cleaning frequency as well as surface important things to be cleaned which
-have not been cleaned in a while.
+we can clean thoroughly and track cleaning frequency as well as surface important things 
+to be cleaned which have not been cleaned in a while.
+
+Finally, a *USEFUL* to do example app!
 
 Hosted at [http://jsyang.ca/fresh](http://jsyang.ca/fresh)
 
-## Features
+## End-User Features
 - User auth
 - Cleaning tasks by room
     - Mark task as done
+    - Undo marking a task as done
     - See time of last completion
+    - See user who last completed the task
     - Color coding and sorting of most urgent to least urgent tasks
     - Segregate tasks: "Quick" vs "Deep"
     - Super urgent tasks animate (blink) in the list
