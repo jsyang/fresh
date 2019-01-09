@@ -67,7 +67,7 @@ app.post('/tasks/:id', ({username, password, params, body}, res) => {
 });
 
 // Redirect to project homepage if trying to access the API directly in browser
-app.get('/', require('../../package.json').homepage);
+app.get('/', (req, res) => res.redirect(require('../../package.json').homepage));
 
 require('http').createServer(app).listen(
     process.env.PORT || 3001,
