@@ -41,11 +41,18 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+const COLLECTION_TRANSFORMS = {
+    users: (user) => ({name: user.name}),
+    tasks: task => task,
+    rooms: room => room
+};
+
 app.get('/:collection', ({username, password, params}, res) => {
     connect(username, password)
         .then(({db, client}) => db.collection(params.collection).find({}).toArray((err, result) => {
             client.close();
-            res.json(result);
+            
+            res.json(result.map(COLLECTION_TRANSFORMS[params.collection]));
         }))
         .catch(err => res.status(400).send(err))
 });
