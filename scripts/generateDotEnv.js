@@ -6,6 +6,5 @@ const BUILD_DATE = (new Date()).toISOString();
 
 writeFileSync('.env', [
     `BUILD_HASH=${BUILD_HASH}`,
-    `BUILD_DATE=${BUILD_DATE}`,
-    `MLAB_API_KEY=beLqdZWLAlC3_p5HZz9l2Ts8XB5ZCT_t`,
+    `BUILD_DATE=${BUILD_DATE}`
 ].join('\n'));

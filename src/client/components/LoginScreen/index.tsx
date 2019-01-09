@@ -2,7 +2,7 @@ import {h, Component} from 'preact';
 import style, {common} from '../style';
 import {route} from 'preact-router';
 import {connect} from 'unistore/preact';
-import {setUsernamePassword, setUsers} from '../../store';
+import {setUsernamePassword, setUsers} from '../../store/index';
 import {Color} from '../colors';
 import {getAllUsers} from '../../network/db';
 

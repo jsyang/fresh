@@ -14,7 +14,8 @@
       "es2017.object",
       "es6",
       "es7",
-      "dom"
+      "dom",
+      "es2018.promise"
     ],
     "noUnusedLocals": true,
     "strictNullChecks": true

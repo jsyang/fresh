@@ -1,5 +1,5 @@
 import {h} from 'preact';
-import picostyle, {createNode} from 'picostyle';
+import picostyle, {createNode, keyframes} from 'picostyle';
 
 export default picostyle(h as createNode);
 
@@ -10,3 +10,5 @@ export const common = {
         'box-sizing':         'border-box'
     }
 };
+
+export const animation = keyframes;

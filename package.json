@@ -7,11 +7,12 @@
   "scripts": {
     "ts-watch": "tsc --noEmit -w -p .",
     "regen-env": "node scripts/generateDotEnv.js",
-    "seed-data": "node scripts/initializeNetworkDB.js",
+    "db:reset": "node scripts/resetDB.js",
+    "db:seed": "node scripts/seedDB.js",
     "bake-html": "node scripts/bakeIndexHTML.js ; rm fresh.js",
     "watch": "yarn regen-env ; parcel _dev.html --port 3000 --no-hmr --no-source-maps",
     "build": "rm -rf .cache ; yarn regen-env ; parcel build _dev.html --no-source-maps --out-dir . ; yarn cleanup ; yarn bake-html",
-    "cleanup": "git checkout _dev.html ; mv src.*.js fresh.js"
+    "cleanup": "git checkout _dev.html ; mv client.*.js fresh.js"
   },
   "devDependencies": {
     "@types/parcel-env": "^0.0.0",
@@ -24,8 +25,12 @@
     "unistore": "^3.1.1"
   },
   "dependencies": {
+    "ddos": "^0.1.33",
     "express": "^4.16.4",
+    "helmet": "^3.15.0",
     "mongodb": "^3.1.10",
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.3.0",
+    "promise.prototype.finally": "^3.1.0",
+    "twilio": "^3.26.1"
   }
 }

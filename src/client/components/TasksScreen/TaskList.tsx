@@ -5,7 +5,8 @@ import {Color, getBackgroundColorByTime, getTextColorByTime} from '../colors';
 import {finishTask} from '../../network/db';
 
 interface ITaskListProps {
-    parent: any;
+    updateTasks: any;
+    addFinishedTask: Function;
     tasks: any[];
     name: string;
 }
@@ -55,8 +56,9 @@ const TaskRow: any = style('tr')({
 
 class TaskList extends Component<ITaskListProps> {
     onClickFinish = (t: ITask) =>
-        finishTask(t._id)
-            .then(this.props.parent.updateTasks);
+        finishTask(t)
+            .then(this.props.updateTasks)
+            .then(() => this.props.addFinishedTask(t));
 
     onClickName = (t: ITask) => {
         if (t.description) {

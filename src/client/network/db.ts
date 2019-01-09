@@ -1,8 +1,12 @@
-import store from '../store';
+import store, {setIsFetching} from '../store/index';
 
 const ORIGIN = 'https://freshdb.herokuapp.com';
 
+const setIsNotFetching = () => setIsFetching(false);
+
 const fetchFromDB = (path, options = {headers: {}}, shouldNotAuth?: boolean) => {
+    setIsFetching(true);
+
     if (!shouldNotAuth) {
         let {username, password} = store.getState();
 
@@ -14,7 +18,8 @@ const fetchFromDB = (path, options = {headers: {}}, shouldNotAuth?: boolean) => 
         }
     }
 
-    return fetch(`${ORIGIN}${path}`, options);
+    return fetch(`${ORIGIN}${path}`, options)
+        .finally(setIsNotFetching);
 };
 
 const getErrorOrJSON = res => {
@@ -41,17 +46,35 @@ export function getAllTasks() {
         .then(tasks => tasks.sort((a, b) => a.timeLastCleaned - b.timeLastCleaned));
 }
 
-export function finishTask(id) {
-    const timeLastCleaned = Date.now();
+export function undoTask({_id, history}: ITask) {
+    const options = {
+        method:  'POST',
+        headers: {'Content-Type': 'application/json'},
+        body:    JSON.stringify({
+            history:         history.slice(1),
+            userLastCleaned: history[0].userLastCleaned,
+            timeLastCleaned: history[0].timeLastCleaned
+        })
+    };
+
+    return fetchFromDB(`/tasks/${_id}`, options);
+}
+
+export function finishTask({_id, history, timeLastCleaned, userLastCleaned}: ITask) {
+    const newTimeLastCleaned = Date.now();
 
     const options = {
         method:  'POST',
         headers: {'Content-Type': 'application/json'},
         body:    JSON.stringify({
-            timeLastCleaned,
+            history:         [
+                {timeLastCleaned, userLastCleaned},
+                ...history
+            ],
+            timeLastCleaned: newTimeLastCleaned,
             userLastCleaned: store.getState().username
         })
     };
 
-    return fetchFromDB(`/tasks/${id}`, options);
+    return fetchFromDB(`/tasks/${_id}`, options);
 }

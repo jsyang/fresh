@@ -1,18 +1,14 @@
-const {MongoClient, ObjectID} = require('mongodb');
-const express                 = require('express');
-const app                     = express();
+const {ObjectID} = require('mongodb');
+const {connect}  = require('./mongoClient');
+const ddos       = require('ddos');
+const helmet     = require('helmet');
 
-function connect(username, password) {
-    return new Promise((resolve, reject) => {
-        MongoClient.connect(`mongodb://${username}:${password}@${process.env.DB_HOST}`, (err, client) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({db: client.db('fresh'), client});
-            }
-        });
-    })
-}
+const express = require('express');
+const app     = express();
+
+// Basic security
+app.use((new ddos).express);
+app.use(helmet());
 
 // Primitive auth
 app.use((req, res, next) => {

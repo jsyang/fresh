@@ -4,13 +4,14 @@ import {route} from 'preact-router';
 import TaskList from './TaskList';
 import {getAllTasks} from '../../network/db';
 import {connect} from "unistore/preact";
-import {setTasks} from '../../store';
+import {addFinishedTask, setTasks} from '../../store/index';
 
 interface ITasksScreenProps {
     path: string;
     room: string;
     tasks: ITask[];
     setTasks: any;
+    addFinishedTask: any;
 }
 
 const TasksContainer: any = style('div')({
@@ -33,14 +34,24 @@ class TasksScreen extends Component<ITasksScreenProps> {
         return (
             <TasksContainer>
                 <h2>{room}</h2>
-                <TaskList parent={this} name="Quick clean" tasks={roomTasks.filter(t => !t.isDeep)}/>
-                <TaskList parent={this} name="Deep clean" tasks={roomTasks.filter(t => t.isDeep)}/>
+                <TaskList
+                    updateTasks={this.updateTasks}
+                    addFinishedTask={this.props.addFinishedTask}
+                    name="Quick clean"
+                    tasks={roomTasks.filter(t => !t.isDeep)}
+                />
+                <TaskList
+                    updateTasks={this.updateTasks}
+                    addFinishedTask={this.props.addFinishedTask}
+                    name="Deep clean"
+                    tasks={roomTasks.filter(t => t.isDeep)}
+                />
             </TasksContainer>
         );
     }
 }
 
 export default connect<ITasksScreenProps, {}, {}, {}>
-('tasks', {setTasks})(
+('tasks', {setTasks, addFinishedTask})(
     TasksScreen
 ) as any;

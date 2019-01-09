@@ -4,7 +4,7 @@ import {route} from 'preact-router';
 import {Color} from '../colors';
 import {getAllRooms} from '../../network/db';
 import {connect} from "unistore/preact";
-import {clearState, setRooms} from '../../store';
+import {clearState, setRooms} from '../../store/index';
 
 const Button: any = style('button')({
     ...common.button,

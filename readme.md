@@ -6,12 +6,52 @@ have not been cleaned in a while.
 
 Hosted at [http://jsyang.ca/fresh](http://jsyang.ca/fresh)
 
+## Features
+- User auth
+- Cleaning tasks by room
+    - Mark task as done
+    - See time of last completion
+    - Color coding and sorting of most urgent to least urgent tasks
+    - Segregate tasks: "Quick" vs "Deep"
+    - Super urgent tasks animate (blink) in the list
+- Scheduled task sends SMS / Emails / Twitter DMs to users when tasks reach urgency threshold
+
 ## Todo
+- admin panel
+    - see history
+    - CRUD tasks
+    - manage users
 - create room sorting based on task list
 - fill out seed tasks for rooms
-- send twitter DMs when stuff gets urgent
-- admin panel
-- better mobile UI
+- users settings panel
+    - opt in for SMS / twitter DMs / push notifications / emails
+    - change password
+- app just for push notifications
+
+## Set up
+
+- MLab
+    - read-only account
+- Heroku
+    - env variables
+    - [scheduler setup](https://devcenter.heroku.com/articles/scheduler)
+- GHPages / static file host
+    - only need to dump the built `index.html` in there!
+- Twilio
+    - get and set AUTH_TOKEN, ACCOUNT_SID, and NUMBER
+
+### Environment variables
+
+```
+Name                Example value
+
+DB_HOST             ds121471.mlab.com:49744/fresh
+API_KEY             beLqdZWLAlC3_p5HZz9l2Ts8XB5ZCT_t
+TWILIO_ACCOUNT_SID  AC023f588cc1d635dc5f3fd9bdeed7819a
+TWILIO_AUTH_TOKEN   6ea871a51a34776b76447135cef85504
+TWILIO_NUMBER       +441234567890
+TARGET_NUMBER       +440123456789
+```
 
 ## Tech choices
 
@@ -45,13 +85,18 @@ mongoDB via MLab                        Minimal setup, free hosting, NoSQL
 
 Express                                 Needed a gateway to MLab, simplest proxy API                                 
 (HTTP server)
+
+Twilio                                  Free trial with $15 credit, cheap TX/RX rates                                  
+(messaging service)                     Widely supported internationally, and good reliability
 ```
+
+### Total client file size: 48.45 KB
 
 ## Security
 
 > Given that nobody is keen to hack a house cleaning app DB... 
 
-1. Single file SPA `index.html` talks to proxy API server `mongoproxy.js`
+1. Single file SPA `index.html` talks to proxy API server `src/api/index.js`
 through HTTPS, mongo credentials are sent via `x-username` and `x-password` headers and
 are thus protected by TLS. 
 
@@ -60,8 +105,10 @@ is somehow hijacked via script injection, would require physical access to the d
 Proxy API credentials are managed by the MLab mongoDB instance, so usernames / passwords 
 can be changed or write access revoked.
 
-3. Proxy API server `mongoproxy.js` also has MLab Data API access via an API key, which can be
+3. Proxy API server `src/api/index.js` also has MLab Data API access via an API key, which can be
 swapped out should it be compromised.
+
+4. Proxy API server `src/api/index.js` haves security headers (package `helmet`) and anti-DDOS (package `ddos`) middleware set up.
 
 4. MLab mongodb for this app has a scheduled backup task (per day), so that can also be restored
 if compromised. 
@@ -75,15 +122,10 @@ literals:
 
 ```
 // GOOD
-{
-    'min-width': '50%'
-    ...
-}
+{ 'min-width': '50%', ... }
 
 // BAD: this will break in the production build
-{
-    minWidth: '50%'
-    ...
+{  minWidth: '50%', ... }
 }
 ```
 

@@ -1,1 +1,1 @@
-web: node mongoproxy.js
+web: node src/api/proxy.js

@@ -4,20 +4,24 @@ export interface IState {
     username: string | null;
     password: string | null;
     route: string;
+    lastFinishedTasks: any[]; // ids only
+    isFetching: boolean;
 
     // Locally cached data from network
     users: any[];
-    tasks: any[];
+    tasks: ITask[];
     rooms: any[];
 }
 
 const DEFAULT_STATE: IState = {
-    username: null,
-    password: null,
-    route:    '/',
-    users:    [],
-    tasks:    [],
-    rooms:    []
+    username:          null,
+    password:          null,
+    isFetching:        false,
+    route:             '/',
+    users:             [],
+    tasks:             [],
+    rooms:             [],
+    lastFinishedTasks: []
 };
 
 const persistedState = localStorage.getItem('state');
@@ -35,6 +39,14 @@ export const setUsernamePassword = (state: IState, username: string, password: s
     ({...state, password, username});
 
 export const clearState = () => store.setState(DEFAULT_STATE);
+
+export const addFinishedTask = (state: IState, {_id}: ITask): IState =>
+    ({...state, lastFinishedTasks: [_id, ...state.lastFinishedTasks]});
+
+export const undoFinishedTask = (state: IState): IState =>
+    ({...state, lastFinishedTasks: state.lastFinishedTasks.slice(1)});
+
+export const setIsFetching = (isFetching: boolean) => store.setState({isFetching});
 
 // From network
 
