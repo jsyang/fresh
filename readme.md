@@ -90,7 +90,7 @@ Twilio                                  Free trial with $15 credit, cheap TX/RX 
 (messaging service)                     Widely supported internationally, and good reliability
 ```
 
-### Total client file size: 48.45 KB
+### Total client file size: 85.06 KB
 
 ## Security
 
