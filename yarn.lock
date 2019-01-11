@@ -4061,9 +4061,9 @@ physical-cpu-count@^2.0.0:
   integrity sha1-GN4vl+S/epVRrXURlCtUlverpmA=
 
 picostyle@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/picostyle/-/picostyle-2.0.1.tgz#ac403e77085bb9ac75929f58a66a609684f845ca"
-  integrity sha512-72RM7tTXjIvSHha/LO52UNwN3cvWpkxQriVaD8YZ3vUttmZdG3jG+DW/S73gROT+xv2a0+VIaHBvoOcpOYOUCQ==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/picostyle/-/picostyle-2.1.1.tgz#e3dcb8342815a5f52628f2d7a5be6dcc7464e980"
+  integrity sha512-/f/6z69qPPKwn55xeNxYGEX0E9jsqwNeaXxDJAFfTL8FVOklFxGqQ0Dxwruq0zb13cKJH5EuNIFx2kP4hhYDwQ==
 
 platform@1.3.5:
   version "1.3.5"

@@ -4,7 +4,7 @@ import {connect} from 'unistore/preact'
 import style, {animation, common} from './style';
 import {Color} from './colors';
 import {route} from 'preact-router';
-import {addFinishedTask, clearState, setTasks, undoFinishedTask} from '../store/index';
+import {addFinishedTask, clearState, setTasks, undoFinishedTask} from '../store';
 import {getAllTasks, undoTask} from '../network/db';
 
 const HEADER_HEIGHT = '3em';
