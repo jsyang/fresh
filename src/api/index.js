@@ -76,7 +76,7 @@ const EMPTY_TASK = {
 app.post('/tasks', ({username, password, body}, res) => {
     connect(username, password)
         .then(({db, client}) => db.collection('tasks')
-            .insertOne(EMPTY_TASK, (err, result) => {
+            .insertOne({...EMPTY_TASK}, (err, result) => {
                 if (err) {
                     res.status(400).send(err);
                 } else {
