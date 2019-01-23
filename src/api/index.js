@@ -17,7 +17,7 @@ app.get('/', (req, res) => res.redirect(require('../../package.json').homepage))
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'x-username,x-password,content-type');
-    res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE');
 
     if (req.method === 'OPTIONS') {
         res.status(200).send();
