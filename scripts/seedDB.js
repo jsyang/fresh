@@ -1,4 +1,4 @@
-import {fetchFromDB, POST_OPTIONS} from './networkUtils';
+const {fetchFromDB, POST_OPTIONS} = require('./networkUtils');
 
 const {readFileSync} = require('fs');
 

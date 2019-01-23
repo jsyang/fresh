@@ -3,7 +3,7 @@ import {Component, h} from 'preact';
 import style from '../style';
 import {Color} from '../colors';
 import TableRow from './TableRow';
-import {createTaskAdmin} from '../../network/db';
+import {createTaskAdmin, getAllTasks} from '../../network/db';
 
 const AddRow: any = style('td')({
     background:   Color.Gray2,
@@ -35,6 +35,8 @@ export const getRelevantTaskFields = k => /room|name|description|isDeep/g.test(k
 const byRoom = (a, b) => a.room.toLowerCase() < b.room.toLowerCase() ? -1 : 1;
 
 export default class SpreadSheet extends Component<{ data: any[] }> {
+    onClickAdd = () => createTaskAdmin().then(getAllTasks);
+
     render() {
         const {data}     = this.props;
         const headerKeys = Object.keys(data[0]).filter(getRelevantTaskFields);
@@ -47,7 +49,7 @@ export default class SpreadSheet extends Component<{ data: any[] }> {
                 </tr>
                 {data.sort(byRoom).map(row => <TableRow row={row} headerKeys={headerKeys}/>)}
                 <tr>
-                    <AddRow colSpan={headerKeys.length + 1} onClick={createTaskAdmin}>Add new row</AddRow>
+                    <AddRow colSpan={headerKeys.length + 1} onClick={this.onClickAdd}>Add new row</AddRow>
                 </tr>
             </Table>
         )

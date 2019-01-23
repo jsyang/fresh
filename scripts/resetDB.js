@@ -1,4 +1,4 @@
-import {fetchFromDB, PUT_OPTIONS} from './networkUtils';
+const {fetchFromDB, PUT_OPTIONS} = require('./networkUtils');
 
 Promise.all([
     // Clear out collections first

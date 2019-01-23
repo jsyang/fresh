@@ -61,11 +61,22 @@ app.get('/:collection', ({username, password, params}, res) => {
         .catch(err => res.status(400).send(err))
 });
 
+const EMPTY_TASK = {
+    name:            '',
+    room:            '',
+    description:     '',
+    isDeep:          false,
+    weight:          1,
+    history:         [],
+    userLastCleaned: '',
+    timeLastCleaned: 0
+};
+
 // Create
 app.post('/tasks', ({username, password, body}, res) => {
     connect(username, password)
         .then(({db, client}) => db.collection('tasks')
-            .insertOne(body, (err, result) => {
+            .insertOne(EMPTY_TASK, (err, result) => {
                 if (err) {
                     res.status(400).send(err);
                 } else {

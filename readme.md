@@ -74,6 +74,14 @@ TWILIO_NUMBER       +441234567890
 TARGET_NUMBER       +440123456789
 ```
 
+```
+# Empty out all fresh DB collections
+API_KEY=<API-KEY-HERE> yarn db:reset
+
+# Seed a fresh DB with initial data
+API_KEY=<API-KEY-HERE> yarn db:seed
+```
+
 ## Tech choices
 
 ```
