@@ -32,14 +32,15 @@ const Table: any = style('table')({
 
 export const getRelevantTaskFields = k => /room|name|description|isDeep/g.test(k);
 
-const byRoom = (a, b) => a.room.toLowerCase() < b.room.toLowerCase() ? -1 : 1;
+const byRoom            = (a, b) => a.room.toLowerCase() < b.room.toLowerCase() ? -1 : 1;
+export const byAlphabet = (a, b) => a.toLowerCase() > b.toLowerCase() ? -1 : 1;
 
 export default class SpreadSheet extends Component<{ data: any[] }> {
     onClickAdd = () => createTaskAdmin().then(getAllTasks);
 
     render() {
         const {data}     = this.props;
-        const headerKeys = Object.keys(data[0]).filter(getRelevantTaskFields);
+        const headerKeys = Object.keys(data[0]).filter(getRelevantTaskFields).sort(byAlphabet);
 
         return (
             <Table>

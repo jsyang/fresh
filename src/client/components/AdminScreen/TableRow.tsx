@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 import style from '../style';
 import {Color} from '../colors';
 import {getFormattedTaskValue} from './RoomSelect';
-import {getRelevantTaskFields} from './SpreadSheet';
+import {byAlphabet, getRelevantTaskFields} from './SpreadSheet';
 import {destroyTaskAdmin, getAllTasks, updateTaskAdmin} from '../../network/db';
 
 const TableCell: any = style('td')({
@@ -12,7 +12,10 @@ const TableCell: any = style('td')({
     padding: '0.25em'
 });
 
-const getRelevantTaskFieldValues = task => Object.keys(task).filter(getRelevantTaskFields).map(key => task[key]);
+const getRelevantTaskFieldValues = task => Object.keys(task)
+    .filter(getRelevantTaskFields)
+    .sort(byAlphabet)
+    .map(key => task[key]);
 
 export default class TableRow extends Component<{ row: any, headerKeys: string[] }> {
     onClickDelete = () => destroyTaskAdmin(this.props.row)
