@@ -1,10 +1,11 @@
 import {Component, h} from 'preact';
-import style, {common} from '../style';
 import {route} from 'preact-router';
+import {connect} from "unistore/preact";
+
+import style, {common} from '../style';
 import {Color} from '../colors';
 import {getAllRooms} from '../../network/db';
-import {connect} from "unistore/preact";
-import {clearState, setRooms} from '../../store/index';
+import {clearState} from '../../store';
 
 const Button: any = style('button')({
     ...common.button,
@@ -18,13 +19,11 @@ const Button: any = style('button')({
 
 interface IRoomsScreenProps {
     rooms: any[];
-    setRooms: any;
 }
 
 class RoomsScreen extends Component<IRoomsScreenProps> {
     componentWillMount() {
         getAllRooms()
-            .then(this.props.setRooms)
             .catch(() => {
                 clearState();
                 route('/');
@@ -51,6 +50,4 @@ class RoomsScreen extends Component<IRoomsScreenProps> {
 }
 
 export default connect<IRoomsScreenProps, {}, {}, {}>
-('rooms', {setRooms})(
-    RoomsScreen
-) as any;
+('rooms')(RoomsScreen) as any;

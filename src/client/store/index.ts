@@ -50,12 +50,7 @@ export const setIsFetching = (isFetching: boolean) => store.setState({isFetching
 
 // From network
 
-export const setUsers = (state: IState, users: any[]): IState =>
-    ({...state, users});
-
-export const setRooms = (state: IState, rooms: any[]): IState =>
-    ({...state, rooms});
-
-export const setTasks = (state: IState, tasks: any[]): IState =>
-    ({...state, tasks});
+export const setUsers = (users: any[]) => store.setState({users});
+export const setRooms = (rooms: any[]) => store.setState({rooms});
+export const setTasks = (tasks: any[]) => store.setState({tasks});
 

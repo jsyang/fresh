@@ -13,7 +13,12 @@ export enum Color {
 
     Green0 = '#B6F539',
     Green1 = '#D6FB8D',
-    Green2 = '#C5F85F'
+    Green2 = '#C5F85F',
+
+
+    Gray0  = '#666666',
+    Gray1  = '#aaaaaa',
+    Gray2  = '#dddddd'
 }
 
 const PERIOD          = 7; // in days

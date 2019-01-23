@@ -1,8 +1,9 @@
 import {h, Component} from 'preact';
-import style, {common} from '../style';
 import {route} from 'preact-router';
 import {connect} from 'unistore/preact';
-import {setUsernamePassword, setUsers} from '../../store/index';
+
+import style, {common} from '../style';
+import {setUsernamePassword} from '../../store';
 import {Color} from '../colors';
 import {getAllUsers} from '../../network/db';
 
@@ -18,7 +19,6 @@ const Button: any = style('div')({
 
 interface ILoginScreenProps {
     username: string | null;
-    setUsers: Function;
     setUsernamePassword: Function;
     users: any[];
 }
@@ -30,7 +30,7 @@ class LoginScreen extends Component<ILoginScreenProps> {
         }
 
         if (this.props.users.length === 0) {
-            getAllUsers().then(this.props.setUsers as any);
+            getAllUsers();
         }
     }
 
@@ -40,7 +40,12 @@ class LoginScreen extends Component<ILoginScreenProps> {
 
         if (password) {
             this.props.setUsernamePassword(username, password);
-            route('rooms');
+
+            if (username === 'Admin') {
+                route('admin');
+            } else {
+                route('rooms');
+            }
         } else {
             alert('Cannot continue! No password was given!');
         }
@@ -53,7 +58,12 @@ class LoginScreen extends Component<ILoginScreenProps> {
             return (
                 <div>
                     {users.map(({name}) => (
-                        <Button onClick={this.onClickUser}>{name}</Button>
+                        <Button
+                            onClick={this.onClickUser}
+                            style={name === 'Admin' ? `background: ${Color.Red0}` : ''}
+                        >
+                            {name}
+                        </Button>
                     ))}
                 </div>
             );
@@ -64,6 +74,4 @@ class LoginScreen extends Component<ILoginScreenProps> {
 }
 
 export default connect<ILoginScreenProps, {}, {}, {}>
-('users,username', {setUsernamePassword, setUsers})(
-    LoginScreen
-) as any;
+('users,username', {setUsernamePassword})(LoginScreen) as any;

@@ -1,4 +1,4 @@
-import store, {setIsFetching} from '../store/index';
+import store, {setIsFetching, setRooms, setTasks, setUsers} from '../store';
 
 const ORIGIN = 'https://freshdb.herokuapp.com';
 
@@ -32,18 +32,21 @@ const getErrorOrJSON = res => {
 
 export function getAllUsers() {
     return fetchFromDB('/users', undefined, true)
-        .then(getErrorOrJSON);
+        .then(getErrorOrJSON)
+        .then(setUsers);
 }
 
 export function getAllRooms() {
     return fetchFromDB('/rooms')
-        .then(getErrorOrJSON);
+        .then(getErrorOrJSON)
+        .then(setRooms);
 }
 
 export function getAllTasks() {
     return fetchFromDB('/tasks')
         .then(getErrorOrJSON)
-        .then(tasks => tasks.sort((a, b) => a.timeLastCleaned - b.timeLastCleaned));
+        .then(tasks => tasks.sort((a, b) => a.timeLastCleaned - b.timeLastCleaned))
+        .then(setTasks);
 }
 
 export function undoTask({_id, history}: ITask) {
@@ -74,6 +77,42 @@ export function finishTask({_id, history, timeLastCleaned, userLastCleaned}: ITa
             timeLastCleaned: newTimeLastCleaned,
             userLastCleaned: store.getState().username
         })
+    };
+
+    return fetchFromDB(`/tasks/${_id}`, options);
+}
+
+// Admin operations
+
+// Fix for MongoError 66: delete ._id
+// Performing an update on the path '_id' would modify the immutable field '_id'
+
+export function createTaskAdmin() {
+    const options = {
+        method:  'POST',
+        headers: {'Content-Type': 'application/json'},
+        body:    '{}'
+    };
+
+    return fetchFromDB('/tasks', options);
+}
+
+export function destroyTaskAdmin({_id}: ITask) {
+    const options = {method: 'DELETE', headers: {}};
+
+    return fetchFromDB(`/tasks/${_id}`, options);
+}
+
+export function updateTaskAdmin(task: Partial<ITask>) {
+    const {_id} = task;
+
+    const updatedTask = {...task};
+    delete updatedTask._id;
+
+    const options = {
+        method:  'POST',
+        headers: {'Content-Type': 'application/json'},
+        body:    JSON.stringify(updatedTask)
     };
 
     return fetchFromDB(`/tasks/${_id}`, options);

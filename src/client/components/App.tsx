@@ -2,11 +2,12 @@ import {h} from 'preact';
 import Router from 'preact-router';
 import createHashHistory from 'history/createHashHistory';
 
-import LoginScreen from './LoginScreen/index';
-import TasksScreen from './TasksScreen/index';
-import RoomsScreen from './RoomsScreen/index';
+import store from '../store';
 import Header from './Header';
-import store from '../store/index';
+import LoginScreen from './LoginScreen';
+import TasksScreen from './TasksScreen';
+import RoomsScreen from './RoomsScreen';
+import AdminScreen from './AdminScreen';
 
 function onChange({url}) {
     store.setState({route: url.slice(1)});
@@ -19,6 +20,7 @@ export default () => (
             <LoginScreen default/>
             <TasksScreen path="/clean/:room"/>
             <RoomsScreen path="/rooms"/>
+            <AdminScreen path="/admin"/>
         </Router>
     </div>
 );

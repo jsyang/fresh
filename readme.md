@@ -2,11 +2,24 @@
 
 Mobile-focused app to organize what to and how to clean areas of the house. With this
 we can clean thoroughly and track cleaning frequency as well as surface important things 
-to be cleaned which have not been cleaned in a while.
+to be cleaned which have not been cleaned in a while. Focus on ease of use, performance,
+admin, and maintenance.
 
-Finally, a example to-do app that's actually *USEFUL*!
+Finally, an example to-do app that's actually *USEFUL*!
 
-Hosted at [http://jsyang.ca/fresh](http://jsyang.ca/fresh)
+Hosted at [http://jsyang.ca/fresh](http://jsyang.ca/fresh) OR 
+
+```
+yarn
+
+# Run a local dev build @ http://localhost:3000
+yarn watch
+
+# Build the single file app with everything baked in: index.html
+yarn build
+```
+
+For more yarn commands, see `package.json`.
 
 ## End-User Features
 - User auth
@@ -19,14 +32,15 @@ Hosted at [http://jsyang.ca/fresh](http://jsyang.ca/fresh)
     - Segregate tasks: "Quick" vs "Deep"
     - Super urgent tasks animate (blink) in the list
 - Scheduled task sends SMS / Emails / Twitter DMs to users when tasks reach urgency threshold
+- Admin specific functionality
+    - admin user (segregated from regular user)
+    - spreadsheet has full CRUD UI for tasks
 
 ## Todo
 - admin panel
     - see history
-    - CRUD tasks
     - manage users
 - create room sorting based on task list
-- fill out seed tasks for rooms
 - users settings panel
     - opt in for SMS / twitter DMs / push notifications / emails
     - change password
@@ -51,6 +65,9 @@ Name                Example value
 
 DB_HOST             ds121471.mlab.com:49744/fresh
 API_KEY             beLqdZWLAlC3_p5HZz9l2Ts8XB5ZCT_t
+MLAB_READONLY_USER  fresh
+MLAB_READONLY_PASS  password
+
 TWILIO_ACCOUNT_SID  AC023f588cc1d635dc5f3fd9bdeed7819a
 TWILIO_AUTH_TOKEN   6ea871a51a34776b76447135cef85504
 TWILIO_NUMBER       +441234567890
@@ -94,7 +111,7 @@ Twilio                                  Free trial with $15 credit, cheap TX/RX 
 (messaging service)                     Widely supported internationally, and good reliability
 ```
 
-### Total client file size: 85.06 KB
+### Total client file size: 96.89 KB
 
 ## Security
 

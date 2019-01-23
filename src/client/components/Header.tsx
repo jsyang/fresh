@@ -1,9 +1,9 @@
 import {Component, h} from 'preact';
+import {route} from 'preact-router';
 import {connect} from 'unistore/preact'
 
 import style, {animation, common} from './style';
 import {Color} from './colors';
-import {route} from 'preact-router';
 import {addFinishedTask, clearState, setTasks, undoFinishedTask} from '../store';
 import {getAllTasks, undoTask} from '../network/db';
 
@@ -104,7 +104,7 @@ interface IUnconnectedHeaderProps {
     setTasks: any;
 }
 
-const ROUTES_SIGNOUT_BUTTON = /\/rooms/;
+const ROUTES_SIGNOUT_BUTTON = /\/rooms|\/admin/;
 
 class UnconnectedHeader extends Component<IUnconnectedHeaderProps> {
     onClickBack    = () => history.back();

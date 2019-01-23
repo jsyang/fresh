@@ -23,10 +23,9 @@ const TASKS = ((csv) => {
     });
 })(readFileSync(__dirname + '/tasks.csv').toString());
 
-
 // Seed with initial data
 Promise.all([
-    ...('Delyth,Jim'.split(',').map(item =>
+    ...('Delyth,Jim,Admin'.split(',').map(item =>
         fetchFromDB('/collections/users',
             {...POST_OPTIONS, body: JSON.stringify({name: item})}
         )

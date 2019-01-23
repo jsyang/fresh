@@ -1,4 +1,5 @@
 import {Component, h} from 'preact';
+
 import style from '../style';
 import {getIsOverDue, getRelativeHumanString} from '../../time';
 import {Color, getBackgroundColorByTime, getTextColorByTime} from '../colors';

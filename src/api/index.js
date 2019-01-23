@@ -26,8 +26,8 @@ app.use((req, res, next) => {
 
     // Requests that don't need auth
     if (req.path === '/users') {
-        req.username = 'fresh';
-        req.password = 'read0nly';
+        req.username = process.env.MLAB_READONLY_USER || 'fresh';
+        req.password = process.env.MLAB_READONLY_PASS || 'read0nly';
     } else {
         req.username = req.headers['x-username'];
         req.password = req.headers['x-password'];
@@ -50,6 +50,7 @@ const COLLECTION_TRANSFORMS = {
     rooms: room => room
 };
 
+// Read
 app.get('/:collection', ({username, password, params}, res) => {
     connect(username, password)
         .then(({db, client}) => db.collection(params.collection).find({}).toArray((err, result) => {
@@ -60,6 +61,24 @@ app.get('/:collection', ({username, password, params}, res) => {
         .catch(err => res.status(400).send(err))
 });
 
+// Create
+app.post('/tasks', ({username, password, body}, res) => {
+    connect(username, password)
+        .then(({db, client}) => db.collection('tasks')
+            .insertOne(body, (err, result) => {
+                if (err) {
+                    res.status(400).send(err);
+                } else {
+                    res.status(200).send();
+                }
+
+                client.close();
+            })
+        )
+        .catch(err => res.status(400).send(err))
+});
+
+// Update
 app.post('/tasks/:id', ({username, password, params, body}, res) => {
     connect(username, password)
         .then(({db, client}) => db.collection('tasks')
@@ -76,6 +95,22 @@ app.post('/tasks/:id', ({username, password, params, body}, res) => {
         .catch(err => res.status(400).send(err))
 });
 
+// Delete
+app.delete('/tasks/:id', ({username, password, params, body}, res) => {
+    connect(username, password)
+        .then(({db, client}) => db.collection('tasks')
+            .deleteOne({_id: ObjectID(params.id)}, (err, result) => {
+                if (err) {
+                    res.status(400).send(err);
+                } else {
+                    res.status(200).send();
+                }
+
+                client.close();
+            })
+        )
+        .catch(err => res.status(400).send(err))
+});
 
 require('http').createServer(app).listen(
     process.env.PORT || 3001,
