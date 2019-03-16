@@ -6,10 +6,16 @@ const SelectField: any = style('select')({
     'font-size': '1em'
 });
 
-class RoomSelect extends Component<{ selected: string, onChange: Function }> {
+interface IRoomSelectProps {
+    rooms?: { name: string }[];
+    selected: string;
+    onChange: Function;
+}
+
+export class RoomSelect extends Component<IRoomSelectProps> {
     render() {
         const {selected, onChange} = this.props;
-        const rooms                = store.getState().rooms;
+        const rooms                = this.props.rooms || store.getState().rooms;
 
         return <SelectField onChange={onChange}>
             {rooms.map(({name}) => {

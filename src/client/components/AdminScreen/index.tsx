@@ -11,8 +11,8 @@ interface IAdminScreenProps {
     tasks: any[];
 }
 
-class AdminScreen extends Component<IAdminScreenProps> {
-    componentWillMount() {
+export class AdminScreen extends Component<IAdminScreenProps> {
+    componentDidMount() {
         Promise.all([getAllTasks(), getAllRooms()])
             .catch(() => {
                 clearState();

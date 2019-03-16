@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/TableRow should match snapshot 1`] = `
+
+<tr id="abcdef">
+  <td contenteditable
+      data-key="name"
+      class="p0"
+  >
+    bed
+  </td>
+  <td contenteditable
+      data-key="isDeep"
+      class="p0"
+  >
+    clean the floor
+  </td>
+  <td contenteditable
+      data-key="description"
+      class="p0"
+  >
+    Y
+  </td>
+  <td contenteditable
+      class="p0"
+  >
+    floor gets really dirty after a party
+  </td>
+  <td style="cursor:pointer; text-align:center"
+      class="p0"
+  >
+    ❌
+  </td>
+</tr>
+
+`;
+
+exports[`components/TableRow should match snapshot: css 1`] = `
+.p0 {
+  border: 1px solid #aaaaaa;
+  padding: 0.25em;
+}
+`;

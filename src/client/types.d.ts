@@ -11,3 +11,5 @@ interface ITask {
     userLastCleaned: string;
     timeLastCleaned: number;
 }
+
+declare const getCSSRules: Function;

@@ -108,6 +108,9 @@ Preact-Router                           Simplest router, small size
 Unistore                                Easily persist to localStorage , etc.
 (state management)                      Small size, simplest data store
 
+Jest                                    Industry standard unit and integration testing with 
+(testing library)                       minimal config for React / alt-React projects
+
 mongoDB via MLab                        Minimal setup, free hosting, NoSQL
 (database)                              Tried Firebase, bundle was > 1 MB with
                                         the SDK, too much config hassle.
@@ -157,6 +160,25 @@ literals:
 {  minWidth: '50%', ... }
 }
 ```
+
+### Snapshot testing with `preact` and `picostyle`
+
+It's not immediately obvious how to test Preact JSX within a Jest snapshot test, especially
+when they are styled with Picostyle. However, the great thing about micro-libraries is
+the minimal length of their source code: 
+- preact needs a render to string wrapper for snapshots: `preact-render-to-string`
+- picostyle appends a stylesheet to the virtual DOM (VDOM) while generating CSS class names:
+to get the CSS rules we just need to read them back out from the VDOM.
+This can only be done in sequence (after the `render()`).
+
+```
+expect(render(renderable)).toMatchSnapshot();
+expect(getCSSRules()).toMatchSnapshot('css');
+```
+
+A Jest helper lives inside the setup file for the CSS rules: `getCSSRules()`
+
+See `src/client/components/AdminScreen/TableRow.spec.tsx` for a full example.
 
 ## Similar apps / tools 
 

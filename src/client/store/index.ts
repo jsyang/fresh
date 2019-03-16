@@ -13,7 +13,7 @@ export interface IState {
     rooms: any[];
 }
 
-const DEFAULT_STATE: IState = {
+export const DEFAULT_STATE: IState = {
     username:          null,
     password:          null,
     isFetching:        false,
